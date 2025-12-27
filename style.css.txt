@@ -3,3 +3,38 @@ body {
   color: white;
   text-align: center;
 }
+
+
+
+// Simulated system module
+const SystemController = (() => {
+  const logs = [];
+
+  function log(message) {
+    const timestamp = new Date().toISOString();
+    logs.push(`[${timestamp}] ${message}`);
+    renderLogs();
+  }
+
+  function renderLogs() {
+    const output = document.getElementById("log-output");
+    if (!output) return;
+    output.textContent = logs.join("\n");
+  }
+
+  function init() {
+    log("Boot sequence started");
+    setTimeout(() => log("Loading configuration"), 800);
+    setTimeout(() => log("Connecting modules"), 1600);
+    setTimeout(() => {
+      log("System online");
+      document.getElementById("status-text").textContent = "Operational";
+    }, 2400);
+  }
+
+  return { init };
+})();
+
+document.addEventListener("DOMContentLoaded", () => {
+  SystemController.init();
+});
